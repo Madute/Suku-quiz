@@ -1,0 +1,745 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+  branch: master
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    folder: cms/pages
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Twitter Image
+            name: twitter:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: sf-required, key: 30980dd9'
+            label: Text
+            name: 30980dd9
+            widget: string
+          - hint: 'Original text: Manage recurring validation states., key: -2208475d'
+            label: Text
+            name: '-2208475d'
+            widget: string
+          - hint: 'Original text: sf-form_input-dark, key: -1dd48986'
+            label: Text
+            name: '-1dd48986'
+            widget: string
+          - hint: 'Original text: Field Input (Required), key: -605fea22'
+            label: Text
+            name: '-605fea22'
+            widget: string
+          - hint: 'Original text: Checkbox, key: 5f757fe3'
+            label: Text
+            name: 5f757fe3
+            widget: string
+          - hint: 'Original text: sf-form_checkbox-dark-field, key: 7c8dda6c'
+            label: Text
+            name: 7c8dda6c
+            widget: string
+          - hint: 'Original text: Checkbox (Required), key: 3211317f'
+            label: Text
+            name: 3211317f
+            widget: string
+          - hint: 'Original text: Radio, key: 4b123db'
+            label: Text
+            name: 4b123db
+            widget: string
+          - hint: 'Original text: sf-form_radio-dark-field, key: 70865316'
+            label: Text
+            name: '70865316'
+            widget: string
+          - hint: 'Original text: Radio (Required), key: 1a59e287'
+            label: Text
+            name: 1a59e287
+            widget: string
+          - hint: 'Original text: Select Field, key: 29dca0d6'
+            label: Text
+            name: 29dca0d6
+            widget: string
+          - hint: 'Original text: First Choice, key: -491b32af'
+            label: Text
+            name: '-491b32af'
+            widget: string
+          - hint: 'Original text: Second Choice, key: 3c4172cd'
+            label: Text
+            name: 3c4172cd
+            widget: string
+          - hint: 'Original text: Third Choice, key: -1b351146'
+            label: Text
+            name: '-1b351146'
+            widget: string
+          - hint: 'Original text: sf-form_input-select-dark, key: -6d3e19dd'
+            label: Text
+            name: '-6d3e19dd'
+            widget: string
+          - hint: 'Original text: Select (Required), key: 4cf1c2a6'
+            label: Text
+            name: 4cf1c2a6
+            widget: string
+          - hint: 'Original text: sf-form_input-date-dark, key: 4ef5f9b1'
+            label: Text
+            name: 4ef5f9b1
+            widget: string
+          - hint: 'Original text: is-icon-left-right, key: -26d397f9'
+            label: Text
+            name: '-26d397f9'
+            widget: string
+          - hint: 'Original text: sf-form-icon-left, key: -4112fe34'
+            label: Text
+            name: '-4112fe34'
+            widget: string
+          - hint: 'Original text: Date Input (Required), key: -67aed696'
+            label: Text
+            name: '-67aed696'
+            widget: string
+          - hint: 'Original text: This is an error tag, key: 4002af23'
+            label: Text
+            name: 4002af23
+            widget: string
+          - hint: 'Original text: sf-form_input-error-dark-wrapper, key: 89250e5'
+            label: Text
+            name: '89250e5'
+            widget: string
+          - hint: 'Original text: Error Tag (Required), key: 3379eec0'
+            label: Text
+            name: 3379eec0
+            widget: string
+          - hint: 'Original text: sf-form-icon-right, key: 1f0998f7'
+            label: Text
+            name: 1f0998f7
+            widget: string
+          - hint: 'Original text: Icon on Input Right (Required), key: 5b362e16'
+            label: Text
+            name: 5b362e16
+            widget: string
+          - hint: 'Original text: Icon on Input Left (Required), key: 71e5586b'
+            label: Text
+            name: 71e5586b
+            widget: string
+          - hint: 'Original text: is-text-area, key: -451f1bb6'
+            label: Text
+            name: '-451f1bb6'
+            widget: string
+          - hint: >-
+              Original text: Icon on Input Right Text Area (Required), key:
+              596d1d96
+            label: Text
+            name: 596d1d96
+            widget: string
+          - hint: 'Original text: sf-checked, key: 3f15be2d'
+            label: Text
+            name: 3f15be2d
+            widget: string
+          - hint: >-
+              Original text: Manage recurring checked radio & checkboxes
+              states., key: 16c5b933
+            label: Text
+            name: 16c5b933
+            widget: string
+          - hint: 'Original text: Checkbox (Checked), key: -1ffdba53'
+            label: Text
+            name: '-1ffdba53'
+            widget: string
+          - hint: 'Original text: Radio (Checked), key: 52db53a5'
+            label: Text
+            name: 52db53a5
+            widget: string
+          - hint: 'Original text: sf-focus, key: 107e2cde'
+            label: Text
+            name: 107e2cde
+            widget: string
+          - hint: >-
+              Original text: Manage recurring focusing for button, radio and
+              checkbox states., key: -6814a8ae
+            label: Text
+            name: '-6814a8ae'
+            widget: string
+          - hint: 'Original text: Radio (Focused), key: -59dee2b'
+            label: Text
+            name: '-59dee2b'
+            widget: string
+          - hint: 'Original text: Checkbox (Focused), key: -7876fc23'
+            label: Text
+            name: '-7876fc23'
+            widget: string
+          - hint: 'Original text: sf-hide, key: 7425ec7c'
+            label: Text
+            name: 7425ec7c
+            widget: string
+          - hint: 'Original text: Manage hidden states., key: 7927c5f1'
+            label: Text
+            name: 7927c5f1
+            widget: string
+          - hint: 'Original text: sf-skeleton-dark, key: 3e7bb2fc'
+            label: Text
+            name: 3e7bb2fc
+            widget: string
+          - hint: 'Original text: Loader Box (Currently Hidden), key: 4f01521f'
+            label: Text
+            name: 4f01521f
+            widget: string
+          - hint: 'Original text: sf-await, key: 103b515c'
+            label: Text
+            name: 103b515c
+            widget: string
+          - hint: 'Original text: Manage awaiting states. , key: -294c1fd3'
+            label: Text
+            name: '-294c1fd3'
+            widget: string
+          - hint: 'Original text: Submit, key: -6bbed3c8'
+            label: Text
+            name: '-6bbed3c8'
+            widget: string
+          - hint: 'Original text: One moment..., key: -6b6954ec'
+            label: Text
+            name: '-6b6954ec'
+            widget: string
+          - hint: 'Original text: sf-button-child, key: 3fc5b7fb'
+            label: Text
+            name: 3fc5b7fb
+            widget: string
+          - hint: 'Original text: sf-button-await-child, key: -854767c'
+            label: Text
+            name: '-854767c'
+            widget: string
+          - hint: 'Original text: Awaiting Status of Buttons, key: 102ad2b2'
+            label: Text
+            name: 102ad2b2
+            widget: string
+          - hint: >-
+              Original text: Thank you! Your submission has been received!, key:
+              5a0ea5a1
+            label: Text
+            name: 5a0ea5a1
+            widget: string
+          - hint: >-
+              Original text: Oops! Something went wrong while submitting the
+              form., key: -7c112e99
+            label: Text
+            name: '-7c112e99'
+            widget: string
+          - hint: >-
+              Original text: Let’s start by getting to know your hair a little.,
+              key: 770a5bdc
+            label: Text
+            name: 770a5bdc
+            widget: string
+          - hint: >-
+              Original text: How do you typically wear your hair?, key:
+              -3cc52eb8
+            label: Text
+            name: '-3cc52eb8'
+            widget: string
+          - hint: 'Original text: Out (Loose and Free), key: 588dc9fc'
+            label: Text
+            name: 588dc9fc
+            widget: string
+          - hint: 'Original text: Email, key: 3ff5b7c'
+            label: Text
+            name: 3ff5b7c
+            widget: string
+          - hint: 'Original text: Tied up or in a protective style, key: 3635c670'
+            label: Text
+            name: 3635c670
+            widget: string
+          - hint: 'Original text: Blown out or straightened, key: 13dc8809'
+            label: Text
+            name: 13dc8809
+            widget: string
+          - hint: >-
+              Original text: Styled with extensions, weaves, or wigs, key:
+              -3d51f13f
+            label: Text
+            name: '-3d51f13f'
+            widget: string
+          - hint: 'Original text: Varied, key: -67b2e99f'
+            label: Text
+            name: '-67b2e99f'
+            widget: string
+          - hint: 'Original text: Next Slide, key: -2d6079bc'
+            label: Text
+            name: '-2d6079bc'
+            widget: string
+          - hint: 'Original text: How does your hair feel right now?, key: 47f75aff'
+            label: Text
+            name: 47f75aff
+            widget: string
+          - hint: 'Original text: Dry scalp with flakes, key: 7f4adf18'
+            label: Text
+            name: 7f4adf18
+            widget: string
+          - hint: 'Original text: Dry and brittle, key: 76ef5534'
+            label: Text
+            name: 76ef5534
+            widget: string
+          - hint: 'Original text: Tangled and knotty, key: 583f5131'
+            label: Text
+            name: 583f5131
+            widget: string
+          - hint: 'Original text: Weighed down, key: -bd7e959'
+            label: Text
+            name: '-bd7e959'
+            widget: string
+          - hint: 'Original text: Moisturised and balanced, key: -656d10dd'
+            label: Text
+            name: '-656d10dd'
+            widget: string
+          - hint: >-
+              Original text: Great! Now let’s see how dense and thick your hair
+              is, key: -77bf31ba
+            label: Text
+            name: '-77bf31ba'
+            widget: string
+          - hint: >-
+              Original text: How full or thick does your hair feel overall?,
+              key: 4f4c993
+            label: Text
+            name: 4f4c993
+            widget: string
+          - hint: >-
+              Original text: My hair feels light, and I can see my scalp easily,
+              key: 58ca7ab4
+            label: Text
+            name: 58ca7ab4
+            widget: string
+          - hint: >-
+              Original text: My hair feels moderately full, and I can see my
+              scalp in certain areas, key: 244ec859
+            label: Text
+            name: 244ec859
+            widget: string
+          - hint: >-
+              Original text: My hair feels thick and I can barely see my scalp,
+              key: -697fdca1
+            label: Text
+            name: '-697fdca1'
+            widget: string
+          - hint: >-
+              Original text: How would you describe the thickness of your
+              individual hair strands?, key: -6698acdf
+            label: Text
+            name: '-6698acdf'
+            widget: string
+          - hint: >-
+              Original text: My strands are very fine and feel soft, like silk,
+              key: -3a1b7f42
+            label: Text
+            name: '-3a1b7f42'
+            widget: string
+          - hint: >-
+              Original text: My strands don't seem too fine or thick, key:
+              -7f2e2cd5
+            label: Text
+            name: '-7f2e2cd5'
+            widget: string
+          - hint: >-
+              Original text: My strands feel thick to the touch similar to the
+              thickness of dental floss, key: 6a56bd8
+            label: Text
+            name: 6a56bd8
+            widget: string
+          - hint: >-
+              Original text: Lastly, let’s find out how your hair relates to
+              water, key: -2be7eb10
+            label: Text
+            name: '-2be7eb10'
+            widget: string
+          - hint: >-
+              Original text: When you’re washing your hair, how quickly does it
+              get wet?, key: 77005ee0
+            label: Text
+            name: 77005ee0
+            widget: string
+          - hint: >-
+              Original text: My hair quickly absorbs water like a sponge, key:
+              -2924ebf1
+            label: Text
+            name: '-2924ebf1'
+            widget: string
+          - hint: >-
+              Original text: My hair takes about a minute or two before it feels
+              fully wet., key: -26845246
+            label: Text
+            name: '-26845246'
+            widget: string
+          - hint: >-
+              Original text: My hair repels water; it takes a long while before
+              it's fully wet, key: 770b7608
+            label: Text
+            name: 770b7608
+            widget: string
+          - hint: >-
+              Original text: Once your hair is wet, how fast does it air dry?,
+              key: -7f1e5ee8
+            label: Text
+            name: '-7f1e5ee8'
+            widget: string
+          - hint: 'Original text: My hair dries in under an hour, key: 3b671255'
+            label: Text
+            name: 3b671255
+            widget: string
+          - hint: 'Original text: My hair dries in about 1 - 3 hours, key: 28f8e153'
+            label: Text
+            name: 28f8e153
+            widget: string
+          - hint: >-
+              Original text: My hair stays wet for several hours or all day,
+              key: -36b9c18a
+            label: Text
+            name: '-36b9c18a'
+            widget: string
+          - hint: >-
+              Original text: Your Perfect Match: High Porosity Essentials Kit,
+              key: -3249c1ef
+            label: Text
+            name: '-3249c1ef'
+            widget: string
+          - hint: 'Original text: Add to cart, key: -26af42fa'
+            label: Text
+            name: '-26af42fa'
+            widget: string
+          - hint: >-
+              Original text: Your Perfect Match: Low Porosity Essentials Kit,
+              key: -4e7e87f3
+            label: Text
+            name: '-4e7e87f3'
+            widget: string
+          - hint: 'Original text: Prev, key: 261653'
+            label: Text
+            name: '261653'
+            widget: string
+          - hint: 'Original text: Next, key: 24ff13'
+            label: Text
+            name: 24ff13
+            widget: string
+          - hint: 'Original text: Calculating..., key: -6f6d06f5'
+            label: Text
+            name: '-6f6d06f5'
+            widget: string
+          - hint: 'Original text: Protected Page, key: -11d4bbff'
+            label: Text
+            name: '-11d4bbff'
+            widget: string
+          - hint: >-
+              Original text: Incorrect password. Please try again., key:
+              -f5c4b5f
+            label: Text
+            name: '-f5c4b5f'
+            widget: string
+          - hint: 'Original text: Page Not Found, key: -40b0787c'
+            label: Text
+            name: '-40b0787c'
+            widget: string
+          - hint: >-
+              Original text: The page you are looking for doesn't exist or has
+              been moved, key: 556d64d8
+            label: Text
+            name: 556d64d8
+            widget: string
+          - hint: 'Original text: Go Home, key: 6b29b517'
+            label: Text
+            name: 6b29b517
+            widget: string
+      - label: Links
+        name: links
+        file: cms/_data/links.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: >-
+              Original link:
+              https://organicsuku.com/products/suku-essentials-high-porosity,
+              key: 6bafc24
+            label: Link
+            name: 6bafc24
+            widget: string
+          - hint: >-
+              Original link:
+              https://organicsuku.com/products/suku-essentials-low-porosity,
+              key: -639be692
+            label: Link
+            name: '-639be692'
+            widget: string
+          - hint: 'Original link: /, key: 2f'
+            label: Link
+            name: 2f
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: 1d6128e9
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i1e223253
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1acb5040
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 2cfb6189
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 22444bb
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 10077d3d
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4abef31c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2b1beb3c'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+publish_mode: editorial_workflow
