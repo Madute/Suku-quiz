@@ -1,4 +1,4 @@
-const pluginSEO = require("eleventy-plugin-seo");
+const pluginSEO = require("@11ty/eleventy-plugin-seo");
 
 module.exports = function(eleventyConfig) {
   // Add SEO plugin
